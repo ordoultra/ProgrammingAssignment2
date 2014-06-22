@@ -1,5 +1,5 @@
 ## These functions create an object which will store a matrix and
-## calculate it's inverse
+## calculate it's inverse.
 ## 
 ## Assumptions:  The matrix object is always square and invertable.
 ##
