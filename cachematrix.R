@@ -30,16 +30,46 @@ makeCacheMatrix <- function(x = matrix())
 ## matrix's inverse, if it has the set value is reused, if not it is calculated then set. 
 cacheSolve <- function(x, ...) 
 {
+	#attempt to get previously set inverse of matrix x
     i <- x$getinverse()
+
+	#if inverse is not null return the inverse matrix
     if(!is.null(i))
     {
         message("getting cached data")
         return(i)
     }
 
+	#set matrix x to data
     data <- x$get()
-    i <- solve(x, ...)
+	#invert data and set to inverse matrix to i
+    i <- solve(data, ...)
+	#use x's setter function to set inverse matrix
     x$setinverse(i)
 
     return(i)
 }
+
+#> mat1 <- matrix(c(1,2,3,0,1,4,5,6,0), 3)
+#> mat1
+#     [,1] [,2] [,3]
+#[1,]    1    0    5
+#[2,]    2    1    6
+#[3,]    3    4    0
+#> x <- makeCacheMatrix(mat1)
+#> x$get()
+#     [,1] [,2] [,3]
+#[1,]    1    0    5
+#[2,]    2    1    6
+#[3,]    3    4    0
+#> cacheSolve(x)
+#     [,1] [,2] [,3]
+#[1,]  -24   20   -5
+#[2,]   18  -15    4
+#[3,]    5   -4    1
+#> x$getinverse()
+#     [,1] [,2] [,3]
+#[1,]  -24   20   -5
+#[2,]   18  -15    4
+#[3,]    5   -4    1
+
